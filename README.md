@@ -1,21 +1,70 @@
-## Intro
+## Introduction
 
-[![Build Status](https://travis-ci.org/thtrieu/darkflow.svg?branch=master)](https://travis-ci.org/thtrieu/darkflow) [![codecov](https://codecov.io/gh/thtrieu/darkflow/branch/master/graph/badge.svg)](https://codecov.io/gh/thtrieu/darkflow)
+Inspired by the YOLO algorithm (Paper: [version 1](https://arxiv.org/pdf/1506.02640.pdf), [version 2](https://arxiv.org/pdf/1612.08242.pdf).) and our 8 months old daughter, we decided to build an object recognition app to help her to learn more about this new world through the eye of the camera (as long as the program does the right thing :stuck_out_tongue_closed_eyes: Thanks for all the contributions
+from the github to save us tons of time, esp. the author [thtrieu](https://github.com/thtrieu) of the [repository](https://github.com/thtrieu) we forked from. 
 
-Real-time object detection and classification. Paper: [version 1](https://arxiv.org/pdf/1506.02640.pdf), [version 2](https://arxiv.org/pdf/1612.08242.pdf).
-
-Read more about YOLO (in darknet) and download weight files [here](http://pjreddie.com/darknet/yolo/). In case the weight file cannot be found, I uploaded some of mine [here](https://drive.google.com/drive/folders/0B1tW_VtY7onidEwyQ2FtQVplWEU), which include `yolo-full` and `yolo-tiny` of v1.0, `tiny-yolo-v1.1` of v1.1 and `yolo`, `tiny-yolo-voc` of v2.
-
-
-Click on this image to see demo from yolov2:
-
-[![img](preview.png)](http://i.imgur.com/EyZZKAA.gif)
 
 ## Dependencies
 
 Python3, tensorflow 1.0, numpy, opencv 3.
 
+### Installation for Ubuntu (14.04)
+
+#### Prerequisites for tensorfow with GPU support (with a friendly WARNING!!!) 
+- You need to install NVIDIA CUDA Toolkit (>= 7) and for Ubuntu 14.04, 8.0 is the highest supported version.
+- You need to install cuDNN v6.0
+ 
+```
+$ sudo apt-get install aptitude 
+$ sudo aptitude install cuda (Trust me, it's the easiest way to install CUDA) 
+
+$ export CUDNN_TAR_FILE="cudnn-8.0-linux-x64-v6.0.tgz"
+$ wget http://developer.download.nvidia.com/compute/redist/cudnn/v6.0/${CUDNN_TAR_FILE}
+$ tar zxvf ${CUDNN_TAR_FILE}
+$ sudo cp -P cuda/include/cudnn.h /usr/local/cuda-8.0/include
+$ sudo cp -P cuda/lib64/libcudnn* /usr/local/cuda-8.0/lib64/
+$ sudo chmod a+r /usr/local/cuda-8.0/lib64/libcudnn*
+```
+
+##### set environment variables in /etc/environment
+
+```
+PATH=/usr/local/cuda-8.0/bin:$PATH
+LD_LIBRARY_PATH=/usr/local/cuda-8.0/lib64:$LD_LIBRARY_PATH
+```
+
+- And you have to reboot your Ubuntu to pick up the Nvidia library change :scream:, myself can't believe it either!
+- Now you can install tensorflow
+
+#### Install tensorflow 
+- Installing tensroflow CPU version was the only solution for my Lenovo W541 + Nvidia graphics card because installing the libraries of CUDA and co caused my screen to freeze almost every minute. 
+So I strongly recommend you installing tensorflow CPU version to get rid of the Nvidia dependencies, unless you need to do heavy training. 
+- You can install `tensorflow` (CPU only) or `tensorflow-gpu` following the instructions below
+
+```
+$ sudo apt-get install python-pip3 python-dev
+$ sudo pip3 install Cython
+$ sudo pip3 install opencv-python
+$ virtualenv --system-site-packages  (this works for python 3.n as well, if you run the other command recommended by the tensorflow document, you may hit a known issue caused by python package conflict) 
+$ source ~/tensorflow/bin/activate
+(tensorflow)$ easy_install -U pip
+(tensorflow)$ pip3 install --upgrade tensorflow 
+or
+(tensorflow)$ pip3 install --upgrade tensorflow-gpu
+
+```
+
+- Now you're ready to run this project in the tensorflow virtual environment 
+
+
+
+
 ### Getting started
+
+- Download the `yolo.weights` here. 
+```
+wget http://pjreddie.com/media/files/yolo.weights
+```
 
 You can choose _one_ of the following three ways to get started with darkflow.
 
