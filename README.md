@@ -1,5 +1,5 @@
 ## Introduction
-
+ 
 Inspired by the YOLO algorithm (Paper: [version 1](https://arxiv.org/pdf/1506.02640.pdf), [version 2](https://arxiv.org/pdf/1612.08242.pdf).) and our 8 months old daughter, we decided to build an object recognition app to help her to learn more about this new world through the eye of the camera (as long as the program does the right thing :stuck_out_tongue_closed_eyes: Thanks for all the contributions
 from the github to save us tons of time, esp. the author [thtrieu](https://github.com/thtrieu) of the [repository](https://github.com/thtrieu) we forked from. 
 
