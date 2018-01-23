@@ -17,7 +17,7 @@ class loader(object):
         self.src_key = list()
         self.vals = list()
         self.load(*args)
-
+     
     def __call__(self, key):
         for idx in range(len(key)):
             val = self.find(key, idx)
@@ -73,8 +73,8 @@ class weights_loader(loader):
 
         if walker.path is not None:
             assert walker.offset == walker.size, \
-            'expect {} bytes, found {}'.format(
-                walker.offset, walker.size)
+            'expect {} bytes, found {}, expected header size of the yolo weights {}'.format(
+                walker.offset, walker.size, walker.WEIGHTS_HEADER_OFFSET )
             print('Successfully identified {} bytes'.format(
                 walker.offset))
 
@@ -109,6 +109,11 @@ class weights_walker(object):
     def __init__(self, path):
         self.eof = False # end of file
         self.path = path  # current pos
+        #the old header size was 16 bytes, 
+        # new yolo weights may have changed to 20
+        self.WEIGHTS_HEADER_OFFSET = 20
+
+
         if path is None: 
             self.eof = True
             return
@@ -118,10 +123,11 @@ class weights_walker(object):
                 shape = (), mode = 'r', offset = 0,
                 dtype = '({})i4,'.format(4))
             self.transpose = major > 1000 or minor > 1000
-            self.offset = 16
+            self.offset = self.WEIGHTS_HEADER_OFFSET
 
     def walk(self, size):
         if self.eof: return None
+        
         end_point = self.offset + 4 * size
         assert end_point <= self.size, \
         'Over-read {}'.format(self.path)
@@ -133,6 +139,7 @@ class weights_walker(object):
         )
 
         self.offset = end_point
+
         if end_point == self.size: 
             self.eof = True
         return float32_1D_array
