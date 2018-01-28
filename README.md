@@ -84,7 +84,7 @@ wget https://github.com/pjreddie/darknet/blob/master/cfg/tiny-yolo.cfg
 
 ### Troubleshooting 
 
-- The weight files from [Darknet](https://pjreddie.com/darknet/yolo/) may change their format and that may cause the tool to fail. Try to change the `self.WEIGHTS_HEADER_OFFSET` in the class `weights_walker` in `loader.py` to the disprepancy of the expected file size and the system reported file size.
+- The weight files from [Darknet](https://pjreddie.com/darknet/yolo/) may change their format and that may cause the tool to fail. Try to change the `self.WEIGHTS_HEADER_OFFSET` in the class `weights_walker` in `loader.py` to the discrepancy of the expected file size and the system reported file size.
 
 
 

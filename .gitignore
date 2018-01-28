@@ -44,3 +44,7 @@ ckpt/*
 
 #pytest cache
 .cache/
+
+*.co
+
+*~
